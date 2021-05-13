@@ -32,6 +32,7 @@ class MovieDetailsPage extends Component {
 
     return (
       <>
+        <NavLink to="/">back</NavLink>
         <div className="movie__container">
           <div className="poster__wrapper">
             <img

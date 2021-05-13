@@ -18,13 +18,21 @@ class HomePage extends Component {
     return (
       <>
         <h1>tranding today</h1>;
-        <ol>
-          {trandingFilms.map(({ id, title }) => (
+        <ul>
+          {trandingFilms.map(({ id, title, poster_path }) => (
             <li key={id}>
-              <Link to={`/movies/${id}`}>{title}</Link>
+              <Link to={`/movies/${id}`}>
+                <div className="movie__wrapper">
+                  <img
+                    src={`https://image.tmdb.org/t/p/w138_and_h175_face/${poster_path}`}
+                    alt={title}
+                  />
+                  {title}
+                </div>
+              </Link>
             </li>
           ))}
-        </ol>
+        </ul>
       </>
     );
   }

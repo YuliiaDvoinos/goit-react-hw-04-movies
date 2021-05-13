@@ -20,8 +20,15 @@ class Cast extends Component {
     return (
       <>
         <ul>
-          {cast.map((oneCast) => (
-            <li key={oneCast.id}>{oneCast.name}</li>
+          {cast.map(({ id, name, character, profile_path }) => (
+            <li key={id}>
+              <img
+                src={`https://image.tmdb.org/t/p/w138_and_h175_face/${profile_path}`}
+                alt={name}
+              />
+              <p>{name}</p>
+              <p>character: {character}</p>
+            </li>
           ))}
         </ul>
       </>
