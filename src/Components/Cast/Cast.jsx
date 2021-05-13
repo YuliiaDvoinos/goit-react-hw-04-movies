@@ -1,3 +1,4 @@
+import styles from "./Cast.module.css";
 import axios from "axios";
 import { Component } from "react";
 const BASE_URL = "https://api.themoviedb.org/3/";
@@ -19,15 +20,17 @@ class Cast extends Component {
     const { cast } = this.state;
     return (
       <>
-        <ul>
+        <ul className={styles.list}>
           {cast.map(({ id, name, character, profile_path }) => (
-            <li key={id}>
+            <li key={id} className={styles.item}>
               <img
                 src={`https://image.tmdb.org/t/p/w138_and_h175_face/${profile_path}`}
                 alt={name}
               />
-              <p>{name}</p>
-              <p>character: {character}</p>
+              <p className={styles.name}>{name}</p>
+              <p>
+                Character: <span className={styles.character}>{character}</span>
+              </p>
             </li>
           ))}
         </ul>

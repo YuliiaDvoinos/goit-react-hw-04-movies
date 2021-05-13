@@ -1,3 +1,4 @@
+import styles from "./HomePage.module.css";
 import axios from "axios";
 import { Component } from "react";
 import { Link } from "react-router-dom";
@@ -17,17 +18,18 @@ class HomePage extends Component {
     const { trandingFilms } = this.state;
     return (
       <>
-        <h1>tranding today</h1>;
-        <ul>
+        <h1 className={styles.page__title}>tranding today</h1>
+        <ul className={styles.list}>
           {trandingFilms.map(({ id, title, poster_path }) => (
-            <li key={id}>
-              <Link to={`/movies/${id}`}>
-                <div className="movie__wrapper">
+            <li key={id} className={styles.list__item}>
+              <Link to={`/movies/${id}`} className={styles.link}>
+                <div className={styles.movie__wrapper}>
                   <img
+                    className={styles.img}
                     src={`https://image.tmdb.org/t/p/w138_and_h175_face/${poster_path}`}
                     alt={title}
                   />
-                  {title}
+                  <p className={styles.movie__title}>{title}</p>
                 </div>
               </Link>
             </li>

@@ -1,3 +1,4 @@
+import styles from "./Review.module.css";
 import axios from "axios";
 import { Component } from "react";
 const BASE_URL = "https://api.themoviedb.org/3/";
@@ -18,11 +19,11 @@ class Review extends Component {
   render() {
     const { reviews } = this.state;
     const condition = reviews.length === 0;
-    const message = <p>there is no any reviews</p>;
+    const message = <h3>There is no any reviews</h3>;
     const result = reviews.map(({ id, author, content }) => (
-      <li key={id}>
-        <h3>{author}</h3>
-        <p>{content}</p>
+      <li key={id} className={styles.item}>
+        <h3 className={styles.nickname}>{author}</h3>
+        <p className={styles.comment}>{content}</p>
       </li>
     ));
 

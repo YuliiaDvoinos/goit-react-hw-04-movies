@@ -1,0 +1,12 @@
+.Container {
+  margin: 0 auto;
+  width: 1200px;
+  padding: 20px;
+  
+}
+.Container ul {
+  list-style: none;
+}
+.Container img {
+  display: block;
+}

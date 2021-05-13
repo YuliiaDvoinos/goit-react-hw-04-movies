@@ -1,3 +1,4 @@
+import styles from "./MovieDetailsPage.module.css";
 import { Component } from "react";
 import { NavLink, Route, Switch } from "react-router-dom";
 import axios from "axios";
@@ -33,30 +34,35 @@ class MovieDetailsPage extends Component {
     return (
       <>
         <NavLink to="/">back</NavLink>
-        <div className="movie__container">
-          <div className="poster__wrapper">
+        <div className={styles.movie__container}>
+          <div className={styles.poster__wrapper}>
             <img
               src={`https://image.tmdb.org/t/p/w300${poster_path}`}
               alt={title}
             />
           </div>
-          <div className="info__wrapper">
-            <h2>
+          <div className={styles.info__wrapper}>
+            <h2 className={styles.film__title}>
               {title}({release_date})
             </h2>
-            <ul>
+            <ul className={styles.info__list}>
               <li>
-                <p>user score {vote_average}</p>
+                <h3>
+                  User score:{" "}
+                  <span className={styles.vote__number}>{vote_average}</span>
+                </h3>
               </li>
               <li>
-                <h3>overview</h3>
+                <h3>Overview:</h3>
                 <p>{movie.overview}</p>
               </li>
               <li>
-                <h3>genres</h3>
-                <ul>
+                <h3>Genres:</h3>
+                <ul className={styles.list}>
                   {genres.map((genre) => (
-                    <li key={genre.id}>{genre.name}</li>
+                    <li className={styles.item} key={genre.id}>
+                      {genre.name}
+                    </li>
                   ))}
                 </ul>
               </li>
@@ -64,12 +70,30 @@ class MovieDetailsPage extends Component {
           </div>
         </div>
         <div className="extra__wrapper">
-          <ul>
-            <li>
-              <NavLink to={`${match.url}/cast`}>Cast</NavLink>
+          <ul className={styles.extra__list}>
+            <li className={styles.extra__item}>
+              <NavLink
+                activeStyle={{
+                  color: "black",
+                  borderBottom: "3px solid blueviolet",
+                }}
+                className={styles.extra__link}
+                to={`${match.url}/cast`}
+              >
+                Cast
+              </NavLink>
             </li>
-            <li>
-              <NavLink to={`${match.url}/review`}>Review</NavLink>
+            <li className={styles.extra__item}>
+              <NavLink
+                activeStyle={{
+                  color: "black",
+                  borderBottom: "3px solid blueviolet",
+                }}
+                className={styles.extra__link}
+                to={`${match.url}/review`}
+              >
+                Review
+              </NavLink>
             </li>
           </ul>
           <Switch>
