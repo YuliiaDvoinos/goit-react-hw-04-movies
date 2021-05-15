@@ -1,4 +1,5 @@
 import styles from "./Cast.module.css";
+import defaultImg from "../../images/default.jpeg";
 import axios from "axios";
 import { Component } from "react";
 const BASE_URL = "https://api.themoviedb.org/3/";
@@ -16,26 +17,39 @@ class Cast extends Component {
 
     this.setState({ cast: data.cast });
   }
+  addDefaultSrc(ev) {
+    ev.target.src = defaultImg;
+  }
   render() {
     const { cast } = this.state;
     return (
       <>
         <ul className={styles.list}>
-          {cast.map(({ id, name, character, profile_path }) => (
-            <li key={id} className={styles.item}>
-              <img
-                src={`https://image.tmdb.org/t/p/w138_and_h175_face/${profile_path}`}
-                alt={name}
-              />
-              <p className={styles.name}>{name}</p>
-              <p>
-                Character: <span className={styles.character}>{character}</span>
-              </p>
-            </li>
-          ))}
+          {cast.map(({ id, name, character, profile_path }) => {
+            const image = `https://image.tmdb.org/t/p/w138_and_h175_face/${profile_path}`;
+            return (
+              <li key={id} className={styles.item}>
+                <img
+                  src={image}
+                  alt={name}
+                  onError={this.addDefaultSrc}
+                  style={{
+                    width: 138,
+                    height: 175,
+                  }}
+                />
+                <p className={styles.name}>{name}</p>
+                <p>
+                  Character:{" "}
+                  <span className={styles.character}>{character}</span>
+                </p>
+              </li>
+            );
+          })}
         </ul>
       </>
     );
   }
 }
+
 export default Cast;

@@ -1,0 +1,36 @@
+.form {
+  display: block;
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+.input {
+  width: 300px;
+  height: 50px;
+  padding: 5px;
+  font-size: 17px;
+  border: 2px solid lavender;
+}
+.input:hover,
+.input:focus {
+  border: none;
+  outline: 2px solid blueviolet;
+}
+.btn {
+  width: 100px;
+  height: 35px;
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
+  font-size: 18px;
+  background-color: lavender;
+  outline: none;
+  border: none;
+  color: blueviolet;
+}
+.btn:hover,
+.btn:focus {
+  background-color: blueviolet;
+  color: white;
+  cursor: pointer;
+}
