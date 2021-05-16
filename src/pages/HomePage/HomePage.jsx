@@ -1,5 +1,6 @@
 import styles from "./HomePage.module.css";
 import dafaultImg from "../../images/default.jpeg";
+import routes from "../../routes";
 import axios from "axios";
 import { Component } from "react";
 import { Link } from "react-router-dom";
@@ -26,7 +27,7 @@ class HomePage extends Component {
             const image = `https://image.tmdb.org/t/p/w138_and_h175_face/${poster_path}`;
             return (
               <li key={id} className={styles.list__item}>
-                <Link to={`/movies/${id}`} className={styles.link}>
+                <Link to={`${routes.MoviesPage}/${id}`} className={styles.link}>
                   <div className={styles.movie__wrapper}>
                     <img className={styles.img} src={image} alt={title} />
                     <p className={styles.movie__title}>{title}</p>

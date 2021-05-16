@@ -1,4 +1,6 @@
 import { NavLink } from "react-router-dom";
+import routes from "../../routes";
+// import { ReactComponent as Logo } from "../../images/logo.svg";
 import { createUseStyles } from "react-jss";
 const useStyles = createUseStyles({
   header: {
@@ -19,6 +21,8 @@ const NavigationBar = () => {
   return (
     <>
       <header className={styles.header}>
+        {/* <Logo className={styles.logo} /> */}
+
         <nav>
           <NavLink
             exact
@@ -27,7 +31,7 @@ const NavigationBar = () => {
               color: "blueviolet",
               borderBottom: "3px solid black",
             }}
-            to="/"
+            to={routes.HomePage}
           >
             Home
           </NavLink>
@@ -37,7 +41,7 @@ const NavigationBar = () => {
               color: "blueviolet",
               borderBottom: "3px solid black",
             }}
-            to="/movies"
+            to={routes.MoviesPage}
           >
             Movies
           </NavLink>
