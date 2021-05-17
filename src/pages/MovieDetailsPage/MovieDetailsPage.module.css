@@ -1,11 +1,12 @@
 .movie__container {
   display: flex;
+  margin-top: 20px;
 
   align-items: center;
 }
-.poster__wrapper {
-  padding: 20px;
-}
+/* .poster__wrapper {
+  
+} */
 .info__wrapper {
   padding: 20px;
   width: 500px;
@@ -30,6 +31,10 @@
 /* cast */
 .extra__list {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  padding: 0;
 }
 .extra__item:not(:last-child) {
   margin-right: 20px;

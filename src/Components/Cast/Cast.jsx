@@ -27,6 +27,7 @@ class Cast extends Component {
         <ul className={styles.list}>
           {cast.map(({ id, name, character, profile_path }) => {
             const image = `https://image.tmdb.org/t/p/w138_and_h175_face/${profile_path}`;
+
             return (
               <li key={id} className={styles.item}>
                 <img
@@ -40,7 +41,7 @@ class Cast extends Component {
                 />
                 <p className={styles.name}>{name}</p>
                 <p>
-                  Character:{" "}
+                  Character:
                   <span className={styles.character}>{character}</span>
                 </p>
               </li>

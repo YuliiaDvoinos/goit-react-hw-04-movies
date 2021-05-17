@@ -1,16 +1,17 @@
+import routes from "../../routes";
 import { Link, withRouter } from "react-router-dom";
 import styles from "./MoviesList.module.css";
-import routes from "../../routes";
 import defaultImg from "../../images/default.jpeg";
 
 const MovieList = ({ movies, location }) => {
   const addDefaultSrc = (ev) => {
     ev.target.src = defaultImg;
   };
+
   return (
     <ul className={styles.list}>
       {movies.map(({ id, title, poster_path }) => {
-        const image = `https://image.tmdb.org/t/p/w138_and_h175_face/${poster_path}`;
+        const image = `https://image.tmdb.org/t/p/w500/${poster_path}`;
         return (
           <li key={id} className={styles.list__item}>
             <Link
@@ -28,6 +29,13 @@ const MovieList = ({ movies, location }) => {
                   src={image}
                   alt={title}
                   onError={addDefaultSrc}
+                  style={{
+                    width: "100%",
+                    objectPosition: "center",
+                    objectFit: "contain",
+                    margin: "0 auto",
+                    minHeight: 427,
+                  }}
                 />
                 <p className={styles.movie__title}>{title}</p>
               </div>

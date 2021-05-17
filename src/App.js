@@ -1,11 +1,21 @@
+import { Suspense, lazy } from "react";
 import { Route, Switch } from "react-router-dom";
+import routes from "./routes";
+
+import Spinner from "./Components/Spinner";
 import NavigationBar from "./Components/NavigationBar";
-import HomePage from "./pages/HomePage";
-import MoviesPage from "./pages/MoviesPage";
-import MovieDetailsPage from "./pages/MovieDetailsPage";
 import NotFound from "./pages/NotFound";
 import Container from "./Components/Container/Container";
-import routes from "./routes";
+
+const HomePage = lazy(() =>
+  import("./pages/HomePage" /*webpackChunkName: "home-page"*/)
+);
+const MoviesPage = lazy(() =>
+  import("./pages/MoviesPage" /*webpackChunkName: "movies-page"*/)
+);
+const MovieDetailsPage = lazy(() =>
+  import("./pages/MovieDetailsPage" /*webpackChunkName: "movie-details-page"*/)
+);
 
 function App() {
   return (
@@ -14,12 +24,17 @@ function App() {
         <div className="App">
           <NavigationBar />
         </div>
-        <Switch>
-          <Route exact path={routes.HomePage} component={HomePage} />
-          <Route path={routes.MovieDetailsPage} component={MovieDetailsPage} />
-          <Route path={routes.MoviesPage} component={MoviesPage} />
-          <Route component={NotFound} />
-        </Switch>
+        <Suspense fallback={<Spinner />}>
+          <Switch>
+            <Route exact path={routes.HomePage} component={HomePage} />
+            <Route
+              path={routes.MovieDetailsPage}
+              component={MovieDetailsPage}
+            />
+            <Route path={routes.MoviesPage} component={MoviesPage} />
+            <Route component={NotFound} />
+          </Switch>
+        </Suspense>
       </Container>
     </>
   );

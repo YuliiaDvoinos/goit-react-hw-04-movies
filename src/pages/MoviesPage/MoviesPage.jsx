@@ -13,7 +13,6 @@ class MoviesPage extends Component {
   };
   componentDidUpdate(prevProps, prevState) {
     if (this.state.movies !== prevState.movies) {
-      console.log(this.state.query);
       localStorage.setItem("movies", JSON.stringify(this.state.movies));
       localStorage.setItem("query", JSON.stringify(this.state.query));
     }

@@ -1,13 +1,23 @@
+import { Suspense, lazy } from "react";
+import Spinner from "../../Components/Spinner";
 import styles from "./MovieDetailsPage.module.css";
 import { Component } from "react";
-import { NavLink, Route, Switch } from "react-router-dom";
+import { NavLink, Route, Switch, withRouter } from "react-router-dom";
 import axios from "axios";
 import routes from "../../routes";
-import Cast from "../../Components/Cast";
-import Review from "../../Components/Review/Review";
+// import Cast from "../../Components/Cast";
+// import Review from "../../Components/Review/Review";
 import defaultImg from "../../images/default.jpeg";
+
 const BASE_URL = "https://api.themoviedb.org/3/";
 const API_KEY = "944ce772996bcaf96d197d63e9d3b577";
+
+const Cast = lazy(() =>
+  import("../../Components/Cast" /*webpackChunkName: "cast"*/)
+);
+const Review = lazy(() =>
+  import("../../Components/Review" /*webpackChunkName: "review"*/)
+);
 
 class MovieDetailsPage extends Component {
   state = {
@@ -30,18 +40,21 @@ class MovieDetailsPage extends Component {
   }
   handleGoBack = () => {
     const { location, history } = this.props;
+
     if (location.state && location.state.from) {
       return history.push(location.state.from);
     }
     history.push(routes.HomePage);
   };
+
   addDefaultSrc(ev) {
     ev.target.src = defaultImg;
   }
   render() {
     const { title, release_date, vote_average, movie, genres, poster_path } =
       this.state;
-    const { match } = this.props;
+
+    const { match, location } = this.props;
     const { url, path } = match;
 
     return (
@@ -55,15 +68,15 @@ class MovieDetailsPage extends Component {
               src={`https://image.tmdb.org/t/p/w300${poster_path}`}
               alt={title}
               onError={this.addDefaultSrc}
-              style={{
-                width: 300,
-                height: 450,
-              }}
+              // style={{
+              //   width: 300,
+              //   height: 450,
+              // }}
             />
           </div>
           <div className={styles.info__wrapper}>
             <h2 className={styles.film__title}>
-              {title}({release_date})
+              {title}({new Date(release_date).getFullYear()})
             </h2>
             <ul className={styles.info__list}>
               <li>
@@ -98,7 +111,13 @@ class MovieDetailsPage extends Component {
                   borderBottom: "3px solid blueviolet",
                 }}
                 className={styles.extra__link}
-                to={`${url}/cast`}
+                // to={`${url}/cast`}
+                to={{
+                  pathname: `${url}/cast`,
+                  state: {
+                    from: location.state.from,
+                  },
+                }}
               >
                 Cast
               </NavLink>
@@ -110,26 +129,26 @@ class MovieDetailsPage extends Component {
                   borderBottom: "3px solid blueviolet",
                 }}
                 className={styles.extra__link}
-                to={`${url}/review`}
+                to={{
+                  pathname: `${url}/review`,
+                  state: {
+                    from: location.state.from,
+                  },
+                }}
               >
                 Review
               </NavLink>
             </li>
           </ul>
-          <Switch>
-            <Route path={`${path}/cast`} component={Cast} />
-            <Route path={`${path}/review`} component={Review} />
-          </Switch>
+          <Suspense fallback={<Spinner />}>
+            <Switch>
+              <Route path={`${path}/cast`} component={Cast} />
+              <Route path={`${path}/review`} component={Review} />
+            </Switch>
+          </Suspense>
         </div>
       </>
     );
   }
 }
-export default MovieDetailsPage;
-
-//original_title || title
-//overview
-//vote_average
-//release_date
-//genres (array)
-//poster_path
+export default withRouter(MovieDetailsPage);
